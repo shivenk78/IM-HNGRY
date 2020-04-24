@@ -1,0 +1,2 @@
+rootProject.name = "IM-HNGRY"
+
