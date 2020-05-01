@@ -40,31 +40,41 @@ fun String.makeRequestParam(value: String): String {
 fun main() {
     val keyFile = File("src/main/resources/api-key.txt")
     API_KEY = keyFile.readText()
+
+    var resultList: ResultList? = null
+
     val job = GlobalScope.launch {
         println("Starting request")
-        println(getPlaces(HOME_LAT, HOME_LNG))
-        println("End of Request")
+        resultList = getPlaces(HOME_LAT, HOME_LNG)
+        println("Request fetched!")
     }
 
     runBlocking { job.join() }
 
-    //val reqFile = File("src/main/resources/req-file.txt")
+    resultList?.results?.forEach { println(it.toString()) }
 }
 
-data class ResultList (val results: Array<PlaceRequest>)
 data class PlaceRequest(
     val business_status: String,
     val geometry: Geometry,
     val id: String,
     val name: String,
-    val opening_hours: OpeningHours,
+    val opening_hours: OpeningHours?,
     val price_level: Int,
     val rating: Double,
     val types: Array<String>,
     val vicinity: String
-)
+) {
+    override fun toString(): String {
+        val dollarStr = "$".repeat(price_level)
+        val isOpen = if (opening_hours != null && opening_hours.open_now) "OPEN" else "CLOSED"
+        return "$name - $rating/5 stars - $dollarStr - $isOpen - $vicinity"
+    }
+}
+
 data class Geometry(
     val Location: Location
 )
 data class Location(val lat: Double, val lng: Double)
 data class OpeningHours(val open_now: Boolean)
+data class ResultList (val results: Array<PlaceRequest>)
