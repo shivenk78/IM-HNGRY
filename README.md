@@ -6,3 +6,6 @@
 
 ### Current Status
 Right now, the app fetches the closest restaurants from the Google Places API and outputs key information about each one to the console.
+
+### Next Steps
+I would like to take this from a basic console application and make it into either a website or cross-platform webapp. I also want to add DoorDash/GrubHub/etc. integration to allow food to be ordered, and be able to sort by wait times. Wait times are not available on the Google Places API yet, but there is a Python library to do so, so I may use that in the future.
