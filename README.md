@@ -19,3 +19,6 @@ I would like to take this from a basic console application and make it into eith
 - Wait times are not available on the Google Places API yet, so I only sorted by distance.
 - Not all restaurants returned have all the necessary fields for sorting them, so I will need to find a way to get around the exceptions.
 - Since the returned API request has lots of nested data, I had to create several nested data classes to deserialize everything with Gson. Luckily, Kotlin makes it easy - this would have been a total nightmare in Java.
+
+##### Sample Output for Illini Union
+![Image Not Available](https://i.imgur.com/qidnz3O.png "Console Output")
