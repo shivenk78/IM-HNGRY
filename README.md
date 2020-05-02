@@ -7,5 +7,15 @@
 ### Current Status
 Right now, the app fetches the closest restaurants from the Google Places API and outputs key information about each one to the console.
 
+### Functionality
+When the app runs, it asks the user for a latitude and longitude to search near using console input. If the user doesn't enter anything, the app uses the location of the Illini Union by default. 
+
 ### Next Steps
-I would like to take this from a basic console application and make it into either a website or cross-platform webapp. I also want to add DoorDash/GrubHub/etc. integration to allow food to be ordered, and be able to sort by wait times. Wait times are not available on the Google Places API yet, but there is a Python library to do so, so I may use that in the future.
+I would like to take this from a basic console application and make it into either a website or cross-platform webapp. I also want to add DoorDash/GrubHub/etc. integration to allow food to be ordered.
+
+---
+
+#### Challenges
+- Wait times are not available on the Google Places API yet, so I only sorted by distance.
+- Not all restaurants returned have all the necessary fields for sorting them, so I will need to find a way to get around the exceptions.
+- Since the returned API request has lots of nested data, I had to create several nested data classes to deserialize everything with Gson. Luckily, Kotlin makes it easy - this would have been a total nightmare in Java.
