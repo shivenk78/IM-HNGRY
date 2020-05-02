@@ -9,10 +9,9 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import java.io.File
+import java.lang.NumberFormatException
 
 private var API_KEY = ""
-private val HOME_LAT = 40.425140
-private val HOME_LNG = -74.544760
 
 suspend fun getPlaces(lat: Double, lng: Double): ResultList {
 
@@ -41,11 +40,28 @@ fun main() {
     val keyFile = File("src/main/resources/api-key.txt")
     API_KEY = keyFile.readText()
 
+    var lat = 40.1092
+    var lng = -88.2272
+    try {
+        println("Welcome to IM HNGRY! You must be HNGRY.")
+        println("Enter search location latitude, or leave empty for Illini Union:")
+        print("LATITUDE> ")
+        val latStr = readLine()
+        if (latStr != "") lat = latStr!!.toDouble()
+
+        println("Enter search location longitude, or leave empty for Illini Union:")
+        print("LONGITUDE> ")
+        val lngStr = readLine()
+        if (lngStr != "") lng = lngStr!!.toDouble()
+    } catch (exception: NumberFormatException) {
+        println("Invalid input, please relaunch IM HUNGRY to try again.")
+    }
+
     var resultList: ResultList? = null
 
     val job = GlobalScope.launch {
         println("Starting request")
-        resultList = getPlaces(HOME_LAT, HOME_LNG)
+        resultList = getPlaces(lat, lng)
         println("Request fetched!")
     }
 
